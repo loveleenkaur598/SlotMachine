@@ -121,6 +121,7 @@ class ViewController: UIViewController {
         spinButton.isEnabled = true
     }
     
+    /* Utility function to reset the player stats */
     @IBAction func resetAll(_ sender: Any) {
         playerAmount.text = String(500)
         winCount.text = String(0)
@@ -134,6 +135,7 @@ class ViewController: UIViewController {
         lossNumber = 0;
         spinButton.isEnabled = true
     }
+    
     /* Check to see if the player won the jackpot */
     public func checkJackPot() {
         /* compare two random values
@@ -151,7 +153,6 @@ class ViewController: UIViewController {
         if(playerMoney == 0){
             spinButton.isEnabled = false
         }
-//        resultText.text = "You Won: $" + String(winnings);
         resetFruitTally();
         //checkJackPot();
     }
@@ -162,7 +163,6 @@ class ViewController: UIViewController {
         if(playerMoney == 0){
             spinButton.isEnabled = false
         }
-//        resultText.text = "You Lost!";
         resetFruitTally();
     }
     
@@ -300,6 +300,7 @@ class ViewController: UIViewController {
             self.resetMessage()
         }
         else if (playerBet > playerMoney) {
+            
           //  alert("You don't have enough Money to place that bet.");
             let dialogMessage = UIAlertController(title: "Confirm", message: "You don't have enough Money to place that bet.", preferredStyle: .alert)
             
@@ -314,6 +315,7 @@ class ViewController: UIViewController {
             
             // Present dialog message to user
             self.present(dialogMessage, animated: true, completion: nil)
+            
         }
         else if (playerBet != 0) {
             //playerBet <= playerMoney
@@ -346,13 +348,14 @@ class ViewController: UIViewController {
         }
     }
     
+    /* Utility function to quit the game */
     @IBAction func quitGame(_ sender: Any) {
         exit(0);
     }
     
-    
+    /* Utility function for reset message */
     public func resetMessage(){
-        let dialogMessage = UIAlertController(title: "Confirm", message: "You ran out of Money! \nDo you want to play again?", preferredStyle: .alert)
+        let dialogMessage = UIAlertController(title: "Play Again?", message: "You ran out of Money! \nDo you want to play again?", preferredStyle: .alert)
         
         // Create OK button with action handler
         let ok = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in
