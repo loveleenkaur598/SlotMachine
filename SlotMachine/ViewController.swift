@@ -23,6 +23,8 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var playerAmount: UILabel!
     
+    @IBOutlet weak var spinButton: UIButton!
+    
     @IBOutlet weak var winCount: UILabel!
     
     @IBOutlet weak var lossCount: UILabel!
@@ -42,26 +44,7 @@ class ViewController: UIViewController {
         }
         else
         {
-            
-            let dialogMessage = UIAlertController(title: "Confirm", message: "You ran out of Money! \nDo you want to play again?", preferredStyle: .alert)
-            
-            // Create OK button with action handler
-            let ok = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in
-                 print("Ok button tapped")
-                 
-            })
-            
-            // Create Cancel button with action handlder
-            let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (action) -> Void in
-                print("Cancel button tapped")
-            }
-            
-            //Add OK and Cancel button to dialog message
-            dialogMessage.addAction(ok)
-            dialogMessage.addAction(cancel)
-            
-            // Present dialog message to user
-            self.present(dialogMessage, animated: true, completion: nil)
+            self.resetMessage()
         }
     }
     
@@ -72,25 +55,7 @@ class ViewController: UIViewController {
         }
         else
         {
-            let dialogMessage = UIAlertController(title: "Confirm", message: "You ran out of Money! \nDo you want to play again?", preferredStyle: .alert)
-            
-            // Create OK button with action handler
-            let ok = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in
-                 print("Ok button tapped")
-                 
-            })
-            
-            // Create Cancel button with action handlder
-            let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (action) -> Void in
-                print("Cancel button tapped")
-            }
-            
-            //Add OK and Cancel button to dialog message
-            dialogMessage.addAction(ok)
-            dialogMessage.addAction(cancel)
-            
-            // Present dialog message to user
-            self.present(dialogMessage, animated: true, completion: nil)
+            self.resetMessage()
         }
     }
     
@@ -101,25 +66,7 @@ class ViewController: UIViewController {
         }
         else
         {
-            let dialogMessage = UIAlertController(title: "Confirm", message: "You ran out of Money! \nDo you want to play again?", preferredStyle: .alert)
-            
-            // Create OK button with action handler
-            let ok = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in
-                 print("Ok button tapped")
-                 
-            })
-            
-            // Create Cancel button with action handlder
-            let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (action) -> Void in
-                print("Cancel button tapped")
-            }
-            
-            //Add OK and Cancel button to dialog message
-            dialogMessage.addAction(ok)
-            dialogMessage.addAction(cancel)
-            
-            // Present dialog message to user
-            self.present(dialogMessage, animated: true, completion: nil)
+            self.resetMessage()
         }
     }
     
@@ -130,25 +77,7 @@ class ViewController: UIViewController {
         }
         else
         {
-            let dialogMessage = UIAlertController(title: "Confirm", message: "You ran out of Money! \nDo you want to play again?", preferredStyle: .alert)
-            
-            // Create OK button with action handler
-            let ok = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in
-                 print("Ok button tapped")
-                 
-            })
-            
-            // Create Cancel button with action handlder
-            let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (action) -> Void in
-                print("Cancel button tapped")
-            }
-            
-            //Add OK and Cancel button to dialog message
-            dialogMessage.addAction(ok)
-            dialogMessage.addAction(cancel)
-            
-            // Present dialog message to user
-            self.present(dialogMessage, animated: true, completion: nil)
+            self.resetMessage()
         }
     }
     
@@ -163,16 +92,6 @@ class ViewController: UIViewController {
         playerAmount.text = String(playerMoney);
         winCount.text = String(winNumber);
         lossCount.text = String(lossNumber);
-//        print("winNumber "+String(winNumber));
-//        print("turn "+String(turn));
-//        winRatio = Float((winNumber * 100) / turn);
-//        print("winRatio "+String(winRatio));
-//        jackPotText.text = String(jackpot);
-//        playerMoneyText.text = String(playerMoney);
-//        turnText.text = String(turn);
-//        winsText.text = String(winNumber);
-//        lossesText.text = String(lossNumber);
-//        winRatioText.text = String(winRatio) + "%";
     }
 
     /* Utility function to reset all fruit tallies */
@@ -189,16 +108,32 @@ class ViewController: UIViewController {
     
     /* Utility function to reset the player stats */
     public func resetAll() {
-        playerMoney = 1000;
+        playerAmount.text = String(500)
+        winCount.text = String(0)
+        lossCount.text = String(0)
+        betAmount.text = String(0)
+        playerMoney = 500;
         winnings = 0;
         jackpot = 5000;
-        turn = 0;
         playerBet = 0;
         winNumber = 0;
         lossNumber = 0;
-        winRatio = 0;
+        spinButton.isEnabled = true
     }
     
+    @IBAction func resetAll(_ sender: Any) {
+        playerAmount.text = String(500)
+        winCount.text = String(0)
+        lossCount.text = String(0)
+        betAmount.text = String(0)
+        playerMoney = 500;
+        winnings = 0;
+        jackpot = 5000;
+        playerBet = 0;
+        winNumber = 0;
+        lossNumber = 0;
+        spinButton.isEnabled = true
+    }
     /* Check to see if the player won the jackpot */
     public func checkJackPot() {
         /* compare two random values
@@ -213,6 +148,9 @@ class ViewController: UIViewController {
     /* Utility function to show a win message and increase player money */
     public func showWinMessage() {
         playerMoney += winnings;
+        if(playerMoney == 0){
+            spinButton.isEnabled = false
+        }
 //        resultText.text = "You Won: $" + String(winnings);
         resetFruitTally();
         //checkJackPot();
@@ -221,6 +159,9 @@ class ViewController: UIViewController {
     /* Utility function to show a loss message and reduce player money */
     public func showLossMessage() {
         playerMoney -= playerBet;
+        if(playerMoney == 0){
+            spinButton.isEnabled = false
+        }
 //        resultText.text = "You Lost!";
         resetFruitTally();
     }
@@ -356,26 +297,7 @@ class ViewController: UIViewController {
         
         if (playerMoney == 0)
         {
-           let dialogMessage = UIAlertController(title: "Confirm", message: "You ran out of Money! \nDo you want to play again?", preferredStyle: .alert)
-           
-           // Create OK button with action handler
-           let ok = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in
-                print("Ok button tapped")
-                
-           })
-           
-           // Create Cancel button with action handlder
-           let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (action) -> Void in
-               print("Cancel button tapped")
-           }
-           
-           //Add OK and Cancel button to dialog message
-           dialogMessage.addAction(ok)
-           dialogMessage.addAction(cancel)
-           
-           // Present dialog message to user
-           self.present(dialogMessage, animated: true, completion: nil)
-            
+            self.resetMessage()
         }
         else if (playerBet > playerMoney) {
           //  alert("You don't have enough Money to place that bet.");
@@ -422,6 +344,33 @@ class ViewController: UIViewController {
                 // Present dialog message to user
                 self.present(dialogMessage, animated: true, completion: nil)
         }
+    }
+    
+    @IBAction func quitGame(_ sender: Any) {
+        exit(0);
+    }
+    
+    
+    public func resetMessage(){
+        let dialogMessage = UIAlertController(title: "Confirm", message: "You ran out of Money! \nDo you want to play again?", preferredStyle: .alert)
+        
+        // Create OK button with action handler
+        let ok = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in
+             print("Ok button tapped")
+             self.resetAll()
+        })
+        
+        // Create Cancel button with action handlder
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (action) -> Void in
+            print("Cancel button tapped")
+        }
+        
+        //Add OK and Cancel button to dialog message
+        dialogMessage.addAction(ok)
+        dialogMessage.addAction(cancel)
+        
+        // Present dialog message to user
+        self.present(dialogMessage, animated: true, completion: nil)
     }
     
 }
