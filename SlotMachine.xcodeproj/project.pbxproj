@@ -15,6 +15,7 @@
 		635A880123D3F09800A6155E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 635A87FF23D3F09800A6155E /* LaunchScreen.storyboard */; };
 		635A880923D3F1D100A6155E /* banner.png in Resources */ = {isa = PBXBuildFile; fileRef = 635A880823D3F1D100A6155E /* banner.png */; };
 		636AFABC23D7C9DC00945779 /* casino_back.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 636AFABB23D7C9DB00945779 /* casino_back.jpg */; };
+		636AFABE23D90CD400945779 /* sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 636AFABD23D90CD300945779 /* sound.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		635A880223D3F09800A6155E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		635A880823D3F1D100A6155E /* banner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = banner.png; sourceTree = "<group>"; };
 		636AFABB23D7C9DB00945779 /* casino_back.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = casino_back.jpg; sourceTree = "<group>"; };
+		636AFABD23D90CD300945779 /* sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = sound.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +66,7 @@
 				635A87F623D3F09300A6155E /* SceneDelegate.swift */,
 				635A87F823D3F09300A6155E /* ViewController.swift */,
 				635A87FA23D3F09300A6155E /* Main.storyboard */,
+				636AFABD23D90CD300945779 /* sound.mp3 */,
 				636AFABB23D7C9DB00945779 /* casino_back.jpg */,
 				635A87FD23D3F09800A6155E /* Assets.xcassets */,
 				635A880823D3F1D100A6155E /* banner.png */,
@@ -135,6 +138,7 @@
 				635A880123D3F09800A6155E /* LaunchScreen.storyboard in Resources */,
 				635A87FE23D3F09800A6155E /* Assets.xcassets in Resources */,
 				635A87FC23D3F09300A6155E /* Main.storyboard in Resources */,
+				636AFABE23D90CD400945779 /* sound.mp3 in Resources */,
 				635A880923D3F1D100A6155E /* banner.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

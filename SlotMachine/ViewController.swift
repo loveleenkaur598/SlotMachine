@@ -8,6 +8,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 class ViewController: UIViewController {
     
@@ -30,6 +31,7 @@ class ViewController: UIViewController {
     var bells = 0;
     var sevens = 0;
     var blanks = 0;
+    var soundEffect: AVAudioPlayer?
     
     // array of images to shuffle
     let reelItems = [UIImage(named: "Lemon.png"),
@@ -156,10 +158,11 @@ class ViewController: UIViewController {
     /* Check to see if the player won the jackpot */
     public func checkJackPot() {
         /* compare two random values */
-        let jackPotTry = Int.random(in: 1..<50);
-        let jackPotWin = Int.random(in: 1..<50);
+        let jackPotTry = Int.random(in: 1..<3);
+        let jackPotWin = Int.random(in: 1..<3);
         if (jackPotTry == jackPotWin) {
           //alert("You Won the $" + jackpot + " Jackpot!!");
+            _ = UIAlertController(title: "You Won", message: "Are you sure! you want to quit the game?", preferredStyle: .actionSheet)
           playerMoney += jackpot;
           jackpot = 1000;
         }
@@ -343,6 +346,16 @@ class ViewController: UIViewController {
             picker.selectRow(Int(spinResult[0]) ?? 0, inComponent: 0, animated: true)
             picker.selectRow(Int(spinResult[1]) ?? 0, inComponent: 1, animated: true)
             picker.selectRow(Int(spinResult[2]) ?? 0, inComponent: 2, animated: true)
+            
+            let path = Bundle.main.path(forResource: "sound.mp3", ofType:nil)!
+            let url = URL(fileURLWithPath: path)
+
+            do {
+                soundEffect = try AVAudioPlayer(contentsOf: url)
+                soundEffect?.play()
+            } catch {
+                // couldn't load file :(
+            }
 
             determineWinnings();
             turn += 1;
