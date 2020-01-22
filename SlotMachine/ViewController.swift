@@ -13,7 +13,7 @@ import AVFoundation
 class ViewController: UIViewController {
     
     // slot machine properties
-    var playerMoney = 500;
+    var playerMoney = 1000;
     var winnings = 0;
     var jackpot = 5000;
     var turn = 0;
@@ -131,7 +131,7 @@ class ViewController: UIViewController {
         winCount.text = String(0)
         lossCount.text = String(0)
         betAmount.text = String(0)
-        playerMoney = 500;
+        playerMoney = 1000;
         winnings = 0;
         jackpot = 5000;
         playerBet = 0;
@@ -146,7 +146,7 @@ class ViewController: UIViewController {
         winCount.text = String(0)
         lossCount.text = String(0)
         betAmount.text = String(0)
-        playerMoney = 500;
+        playerMoney = 1000;
         winnings = 0;
         jackpot = 5000;
         playerBet = 0;
