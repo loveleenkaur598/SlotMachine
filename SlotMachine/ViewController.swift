@@ -1,7 +1,17 @@
+//
+//  Source file name: ViewController.swift
+//  Author’s name(s) : Loveleen Kaur (301093331)
+//                     Bhavya Shah (301076681)
+//                     Dipal Patel (301090880)
+//  Date last Modified : 01 - 22 - 2020
+//  Program description : Logic for the slot machine
+//
+
 import UIKit
 
 class ViewController: UIViewController {
     
+    // slot machine properties
     var playerMoney = 500;
     var winnings = 0;
     var jackpot = 5000;
@@ -21,6 +31,16 @@ class ViewController: UIViewController {
     var sevens = 0;
     var blanks = 0;
     
+    // array of images to shuffle
+    let reelItems = [UIImage(named: "Lemon.png"),
+    UIImage(named: "Grapes.png"),
+    UIImage(named: "Banana.png"),
+    UIImage(named: "Orange.png"),
+    UIImage(named: "Cherry.png"),
+    UIImage(named: "Bar.png"),
+    UIImage(named: "Bell.png"),
+    UIImage(named: "Seven.png")]
+    
     @IBOutlet weak var playerAmount: UILabel!
     
     @IBOutlet weak var spinButton: UIButton!
@@ -31,13 +51,15 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var betAmount: UILabel!
     
-    @IBOutlet weak var imageView1: UIImageView!
+    @IBOutlet weak var picker: UIPickerView!
     
-    @IBOutlet weak var imageView2: UIImageView!
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        picker.dataSource = self
+        picker.delegate = self
+    }
     
-    @IBOutlet weak var imageView3: UIImageView!
-    
-    //Actions on first bet amount
+    //Actions on first bet amount : $ 5
     @IBAction func betAmount1(_ sender: Any) {
         if(playerMoney >= 5){
             betAmount.text = String(5)
@@ -48,7 +70,7 @@ class ViewController: UIViewController {
         }
     }
     
-    //Actions on second bet amount
+    //Actions on second bet amount : $ 10
     @IBAction func betAmount2(_ sender: Any) {
         if(playerMoney >= 10){
             betAmount.text = String(10)
@@ -59,7 +81,7 @@ class ViewController: UIViewController {
         }
     }
     
-    //Actions on third bet amount
+    //Actions on third bet amount : $ 50
     @IBAction func betAmount3(_ sender: Any) {
         if(playerMoney >= 50){
             betAmount.text = String(50)
@@ -70,7 +92,7 @@ class ViewController: UIViewController {
         }
     }
     
-    //Actions on fourth bet amount
+    //Actions on fourth bet amount : $ 100
     @IBAction func betAmount4(_ sender: Any) {
         if(playerMoney >= 100){
             betAmount.text = String(100)
@@ -79,11 +101,6 @@ class ViewController: UIViewController {
         {
             self.resetMessage()
         }
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view.
     }
 
     /* Utility function to show Player Stats */
@@ -138,13 +155,14 @@ class ViewController: UIViewController {
     
     /* Check to see if the player won the jackpot */
     public func checkJackPot() {
-        /* compare two random values
-         var jackPotTry = Math.floor(Math.random() * 51 + 1);
-         var jackPotWin = Math.floor(Math.random() * 51 + 1);
-         if (jackPotTry == jackPotWin) {
-         alert("You Won the $" + jackpot + " Jackpot!!");
-         playerMoney += jackpot;*/
-        jackpot = 1000;
+        /* compare two random values */
+        let jackPotTry = Int.random(in: 1..<50);
+        let jackPotWin = Int.random(in: 1..<50);
+        if (jackPotTry == jackPotWin) {
+          //alert("You Won the $" + jackpot + " Jackpot!!");
+          playerMoney += jackpot;
+          jackpot = 1000;
+        }
     }
     
     /* Utility function to show a win message and increase player money */
@@ -154,7 +172,7 @@ class ViewController: UIViewController {
             spinButton.isEnabled = false
         }
         resetFruitTally();
-        //checkJackPot();
+        checkJackPot();
     }
     
     /* Utility function to show a loss message and reduce player money */
@@ -181,6 +199,7 @@ class ViewController: UIViewController {
      e.g. Bar - Orange - Banana */
     public func Reels() -> Array<String> {
         var betLine = [" ", " ", " "];
+        
         var outCome = [0, 0, 0];
         
         for spin in (0..<3)  {
@@ -188,35 +207,35 @@ class ViewController: UIViewController {
             print(outCome[spin]);
             switch (outCome[spin]) {
             case checkRange(value: outCome[spin], lowerBounds: 1, upperBounds: 27):  // 41.5% probability
-                betLine[spin] = "Lemon";
+                betLine[spin] = "0";
                 blanks += 1;
                 break;
             case checkRange(value: outCome[spin], lowerBounds: 28, upperBounds: 37): // 15.4% probability
-                betLine[spin] = "Grapes";
+                betLine[spin] = "1";
                 grapes += 1;
                 break;
             case checkRange(value: outCome[spin], lowerBounds: 38, upperBounds: 46): // 13.8% probability
-                betLine[spin] = "Banana";
+                betLine[spin] = "2";
                 bananas += 1;
                 break;
             case checkRange(value: outCome[spin], lowerBounds: 47, upperBounds: 54): // 12.3% probability
-                betLine[spin] = "Orange";
+                betLine[spin] = "3";
                 oranges += 1;
                 break;
             case checkRange(value: outCome[spin], lowerBounds: 55, upperBounds: 59): //  7.7% probability
-                betLine[spin] = "Cherry";
+                betLine[spin] = "4";
                 cherries += 1;
                 break;
             case checkRange(value: outCome[spin], lowerBounds: 60, upperBounds: 62): //  4.6% probability
-                betLine[spin] = "Bar";
+                betLine[spin] = "5";
                 bars += 1;
                 break;
             case checkRange(value: outCome[spin], lowerBounds: 63, upperBounds: 64): //  3.1% probability
-                betLine[spin] = "Bell";
+                betLine[spin] = "6";
                 bells += 1;
                 break;
             case checkRange(value: outCome[spin], lowerBounds: 65, upperBounds: 65): //  1.5% probability
-                betLine[spin] = "Seven";
+                betLine[spin] = "7";
                 sevens += 1;
                 break;
             default:
@@ -290,10 +309,9 @@ class ViewController: UIViewController {
     
     }
     
+    // perform the spin action on button click
     @IBAction func spinButton(_ sender: Any) {
         playerBet = Int(betAmount.text!) ?? 0;
-        
-        print(playerBet)
         
         if (playerMoney == 0)
         {
@@ -321,23 +339,23 @@ class ViewController: UIViewController {
             //playerBet <= playerMoney
             spinResult = Reels();
             fruits = spinResult[0] + " - " + spinResult[1] + " - " + spinResult[2];
-            
-            self.imageView1.image = UIImage(named:spinResult[0])
-            self.imageView2.image = UIImage(named:spinResult[1])
-            self.imageView3.image = UIImage(named:spinResult[2])
-            
+
+            picker.selectRow(Int(spinResult[0]) ?? 0, inComponent: 0, animated: true)
+            picker.selectRow(Int(spinResult[1]) ?? 0, inComponent: 1, animated: true)
+            picker.selectRow(Int(spinResult[2]) ?? 0, inComponent: 2, animated: true)
+
             determineWinnings();
             turn += 1;
             showPlayerStats();
+            
         }
         else {
         //  alert("You don't have enough Money to place that bet.");
-                let dialogMessage = UIAlertController(title: "Confirm", message: "Please enter the bet amount first.", preferredStyle: .alert)
+                let dialogMessage = UIAlertController(title: "Select Bet Money", message: "Please enter the bet amount first.", preferredStyle: .alert)
                 
                 // Create OK button with action handler
                 let ok = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in
                      print("Ok button tapped")
-                     
                 })
                 
                 //Add OK and Cancel button to dialog message
@@ -350,7 +368,25 @@ class ViewController: UIViewController {
     
     /* Utility function to quit the game */
     @IBAction func quitGame(_ sender: Any) {
-        exit(0);
+        let dialogMessage = UIAlertController(title: "Quit Game?", message: "Are you sure! you want to quit the game?", preferredStyle: .alert)
+        
+        // Create OK button with action handler
+        let ok = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in
+             exit(0);
+        })
+        
+        // Create Cancel button with action handlder
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (action) -> Void in
+            print("Cancel button tapped")
+        }
+        
+        //Add OK and Cancel button to dialog message
+        dialogMessage.addAction(ok)
+        dialogMessage.addAction(cancel)
+        
+        // Present dialog message to user
+        self.present(dialogMessage, animated: true, completion: nil)
+        
     }
     
     /* Utility function for reset message */
@@ -376,5 +412,59 @@ class ViewController: UIViewController {
         self.present(dialogMessage, animated: true, completion: nil)
     }
     
+}
+
+extension ViewController: UIPickerViewDataSource, UIPickerViewDelegate {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 3
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return reelItems.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
+        let IV = UIImageView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
+        IV.image = reelItems[row]
+        return IV
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
+        return 100.0
+    }
+    
+}
+
+// for button borderwidth , radius and bordercolor
+@IBDesignable extension UIButton {
+
+    @IBInspectable var borderWidth: CGFloat {
+        set {
+            layer.borderWidth = newValue
+        }
+        get {
+            return layer.borderWidth
+        }
+    }
+
+    @IBInspectable var cornerRadius: CGFloat {
+        set {
+            layer.cornerRadius = newValue
+        }
+        get {
+            return layer.cornerRadius
+        }
+    }
+
+    @IBInspectable var borderColor: UIColor? {
+        set {
+            guard let uiColor = newValue else { return }
+            layer.borderColor = uiColor.cgColor
+        }
+        get {
+            guard let color = layer.borderColor else { return nil }
+            return UIColor(cgColor: color)
+        }
+    }
 }
 
