@@ -47,10 +47,6 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var spinButton: UIButton!
     
-    @IBOutlet weak var winCount: UILabel!
-    
-    @IBOutlet weak var lossCount: UILabel!
-    
     @IBOutlet weak var betAmount: UILabel!
     
     @IBOutlet weak var picker: UIPickerView!
@@ -109,8 +105,6 @@ class ViewController: UIViewController {
     public func showPlayerStats()
     {
         playerAmount.text = String(playerMoney);
-        winCount.text = String(winNumber);
-        lossCount.text = String(lossNumber);
     }
 
     /* Utility function to reset all fruit tallies */
@@ -128,8 +122,6 @@ class ViewController: UIViewController {
     /* Utility function to reset the player stats */
     public func resetAll() {
         playerAmount.text = String(1000)
-        winCount.text = String(0)
-        lossCount.text = String(0)
         betAmount.text = String(0)
         playerMoney = 1000;
         winnings = 0;
@@ -142,9 +134,7 @@ class ViewController: UIViewController {
     
     /* Utility function to reset the player stats */
     @IBAction func resetAll(_ sender: Any) {
-        playerAmount.text = String(500)
-        winCount.text = String(0)
-        lossCount.text = String(0)
+        playerAmount.text = String(1000)
         betAmount.text = String(0)
         playerMoney = 1000;
         winnings = 0;
@@ -158,11 +148,23 @@ class ViewController: UIViewController {
     /* Check to see if the player won the jackpot */
     public func checkJackPot() {
         /* compare two random values */
-        let jackPotTry = Int.random(in: 1..<3);
-        let jackPotWin = Int.random(in: 1..<3);
+        let jackPotTry = Int.random(in: 1..<50);
+        let jackPotWin = Int.random(in: 1..<50);
         if (jackPotTry == jackPotWin) {
-          //alert("You Won the $" + jackpot + " Jackpot!!");
-            _ = UIAlertController(title: "You Won", message: "Are you sure! you want to quit the game?", preferredStyle: .actionSheet)
+          let dialogMessage = UIAlertController(title: "You won", message: "Congratulation, you won a jackpot!", preferredStyle: .alert)
+          
+          // Create OK button with action handler
+          let ok = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in
+               print("Ok button tapped")
+               self.resetAll()
+          })
+          
+          //Add OK and Cancel button to dialog message
+          dialogMessage.addAction(ok)
+          
+          // Present dialog message to user
+          self.present(dialogMessage, animated: true, completion: nil)
+            
           playerMoney += jackpot;
           jackpot = 1000;
         }
@@ -207,7 +209,6 @@ class ViewController: UIViewController {
         
         for spin in (0..<3)  {
             outCome[spin] = Int.random(in: 1..<65);
-            print(outCome[spin]);
             switch (outCome[spin]) {
             case checkRange(value: outCome[spin], lowerBounds: 1, upperBounds: 27):  // 41.5% probability
                 betLine[spin] = "0";
@@ -315,6 +316,8 @@ class ViewController: UIViewController {
     // perform the spin action on button click
     @IBAction func spinButton(_ sender: Any) {
         playerBet = Int(betAmount.text!) ?? 0;
+        
+        print(playerMoney)
         
         if (playerMoney == 0)
         {
