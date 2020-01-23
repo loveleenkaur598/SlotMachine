@@ -34,7 +34,7 @@ class ViewController: UIViewController {
     var soundEffect: AVAudioPlayer?
     
     // array of images to shuffle
-    let reelItems = [UIImage(named: "Lemon.png"),
+    let reelItems = [UIImage(named: "cross.png"),
     UIImage(named: "Grapes.png"),
     UIImage(named: "Banana.png"),
     UIImage(named: "Orange.png"),
@@ -127,7 +127,7 @@ class ViewController: UIViewController {
     
     /* Utility function to reset the player stats */
     public func resetAll() {
-        playerAmount.text = String(500)
+        playerAmount.text = String(1000)
         winCount.text = String(0)
         lossCount.text = String(0)
         betAmount.text = String(0)
