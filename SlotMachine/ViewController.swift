@@ -173,8 +173,10 @@ class ViewController: UIViewController {
     /* Utility function to show a win message and increase player money */
     public func showWinMessage() {
         playerMoney += winnings;
+        // if player money ran out of money then disable button
         if(playerMoney == 0){
             spinButton.isEnabled = false
+            spinButton.backgroundColor = UIColor.lightGray
         }
         resetFruitTally();
         checkJackPot();
@@ -183,8 +185,10 @@ class ViewController: UIViewController {
     /* Utility function to show a loss message and reduce player money */
     public func showLossMessage() {
         playerMoney -= playerBet;
+        // if player money ran out of money then disable button
         if(playerMoney == 0){
             spinButton.isEnabled = false
+            spinButton.backgroundColor = UIColor.lightGray
         }
         resetFruitTally();
     }
